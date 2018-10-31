@@ -17,7 +17,7 @@ bool Application2D::startup() {
 
 	m_texture = new aie::Texture("./textures/numbered_grid.tga");
 	m_shipTexture = new aie::Texture("./textures/ship.png");
-	m_charmanderTexture = new aie::Texture("./textures/charmander.png");
+	m_charmanderTexture = new aie::Texture("./textures/monster_sheet.png");
 
 	m_font = new aie::Font("./font/consolas.ttf", 32);
 	
@@ -104,23 +104,8 @@ void Application2D::draw() {
 	m_2dRenderer->drawSprite(m_shipTexture, 600, 400, 0, 0, m_timer, 1);
 
 	//steady sprite
-	float uvnotY = .0f;
 	
-	m_2dRenderer->setUVRect(int(m_timer * 3) % 4 / 4.0f, uvnotY, 2.f / 8, 2.f / 8);
-	for (int i = 0; i < 5; i++)
-	{
-		if (uvnotY > .75f)
-		{
-			uvnotY = .0f;
-			i = 0;
-		}
-		if (i == 4)
-		{
-			uvnotY += .25f;
-		}
-	}
-	
-	m_2dRenderer->drawSprite(m_charmanderTexture, m_charX, m_charY, 0, 0, 0, 2);
+	m_2dRenderer->drawSprite(m_charmanderTexture, m_charX, m_charY, 0, 0, 0, 1);
 
 	// draw a thin line
 	m_2dRenderer->drawLine(300, 300, 600, 400, 2, 1);
