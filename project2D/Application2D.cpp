@@ -17,16 +17,13 @@ bool Application2D::startup() {
 
 	m_texture = new aie::Texture("./textures/numbered_grid.tga");
 	m_shipTexture = new aie::Texture("./textures/ship.png");
-	m_charmanderTexture = new aie::Texture("./textures/monster_sheet.png");
+	
 
 	m_font = new aie::Font("./font/consolas.ttf", 32);
 	
 	m_cameraX = 0;
 	m_cameraY = 0;
 	m_timer = 0;
-
-	m_charX = 600;
-	m_charY = 400;
 
 	return true;
 }
@@ -44,27 +41,7 @@ void Application2D::update(float deltaTime) {
 	m_timer += deltaTime;
 
 	// input example
-
-	//move charmander
 	aie::Input* input = aie::Input::getInstance();
-
-	if (input->isKeyDown(aie::INPUT_KEY_W))
-	{
-		m_charY += 200.0f * deltaTime;
-	}
-	if (input->isKeyDown(aie::INPUT_KEY_S))
-	{
-		m_charY += -200.0f * deltaTime;
-	}
-	if (input->isKeyDown(aie::INPUT_KEY_A))
-	{
-		m_charX += -200.0f * deltaTime;
-	}
-	if (input->isKeyDown(aie::INPUT_KEY_D))
-	{
-		m_charX += 200.0f * deltaTime;
-	}
-
 
 	// use arrow keys to move camera
 	if (input->isKeyDown(aie::INPUT_KEY_UP))
@@ -102,10 +79,6 @@ void Application2D::draw() {
 	// demonstrate spinning sprite
 	m_2dRenderer->setUVRect(0,0,1,1);
 	m_2dRenderer->drawSprite(m_shipTexture, 600, 400, 0, 0, m_timer, 1);
-
-	//steady sprite
-	
-	m_2dRenderer->drawSprite(m_charmanderTexture, m_charX, m_charY, 0, 0, 0, 1);
 
 	// draw a thin line
 	m_2dRenderer->drawLine(300, 300, 600, 400, 2, 1);
