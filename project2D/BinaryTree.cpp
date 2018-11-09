@@ -2,11 +2,12 @@
 
 BinaryTree::BinaryTree()
 {
-	m_pRoot == nullptr;
+	m_pRoot = nullptr;
 }
 
 BinaryTree::~BinaryTree()
 {
+
 }
 
 bool BinaryTree::isEmpty() const
@@ -44,12 +45,14 @@ void BinaryTree::insert(int a_nValue)
 		//there isn't anything there yet.
 		if (a_nValue < currentNode->getData())
 		{
+			TreeNode* newd = new TreeNode(a_nValue);
 			parentNode = currentNode;
 			currentNode = currentNode->getLeft();
 			continue;
 		}
 		if (a_nValue > currentNode->getData())
 		{
+			TreeNode* newd = new TreeNode(a_nValue);
 			parentNode = currentNode;
 			currentNode = currentNode->getRight();
 			continue;
@@ -79,7 +82,31 @@ void BinaryTree::remove(int a_nValue)
 
 TreeNode * BinaryTree::find(int a_nValue)
 {
-	return nullptr;
+	TreeNode* currentNode;
+	TreeNode* parentNode;
+	currentNode = m_pRoot;
+	parentNode = m_pRoot;
+	while (currentNode != nullptr)
+	{
+		if (a_nValue < currentNode->getData())
+		{
+			TreeNode* newd = new TreeNode(a_nValue);
+			parentNode = currentNode;
+			currentNode = currentNode->getLeft();
+			continue;
+		}
+		if (a_nValue > currentNode->getData())
+		{
+			TreeNode* newd = new TreeNode(a_nValue);
+			parentNode = currentNode;
+			currentNode = currentNode->getRight();
+			continue;
+		}
+		if (a_nValue == currentNode->getData())
+		{
+			return currentNode;
+		}
+	}
 }
 
 void BinaryTree::draw(aie::Renderer2D * renderer, aie::Font* g_systemFont, TreeNode * selected)
@@ -89,6 +116,10 @@ void BinaryTree::draw(aie::Renderer2D * renderer, aie::Font* g_systemFont, TreeN
 
 bool BinaryTree::findNode(int a_nSearchValue, TreeNode ** ppOutNode, TreeNode ** ppOutParent)
 {
+	TreeNode* currentNode;
+	TreeNode* parentNode;
+
+	currentNode = m_pRoot;
 	return false;
 }
 
@@ -100,13 +131,13 @@ void BinaryTree::draw(aie::Renderer2D * renderer, TreeNode * pNode, int x, int y
 	{
 		if (pNode->hasLeft())
 		{
-			renderer->setRenderColour(1, 0, 0);
+			renderer->setRenderColour(1, 1, 1);
 			renderer->drawLine(x, y, x - horizontalSpacing, y - 80);
 			draw(renderer, pNode->getLeft(), x - horizontalSpacing, y - 80, horizontalSpacing, g_systemFont, selected);
 		}
 		if (pNode->hasRight())
 		{
-			renderer->setRenderColour(1, 0, 0);
+			renderer->setRenderColour(1, 1, 1);
 			renderer->drawLine(x, y, x + horizontalSpacing, y - 80);
 			draw(renderer, pNode->getRight(), x + horizontalSpacing, y - 80, horizontalSpacing, g_systemFont,selected);
 		}
