@@ -1,5 +1,6 @@
 #include "BinaryTree.h"
 
+//constructor that sets the root to null.
 BinaryTree::BinaryTree()
 {
 	m_pRoot = nullptr;
@@ -10,6 +11,7 @@ BinaryTree::~BinaryTree()
 
 }
 
+//if the root is null then the tree is empty.
 bool BinaryTree::isEmpty() const
 {
 	if (m_pRoot == nullptr)
@@ -22,6 +24,7 @@ bool BinaryTree::isEmpty() const
 	}
 }
 
+//insert simply just inserts a new node into the tree.
 void BinaryTree::insert(int a_nValue)
 {
 	if (isEmpty())
@@ -34,14 +37,18 @@ void BinaryTree::insert(int a_nValue)
 
 	TreeNode* currentNode;
 	TreeNode* parentNode;
-	//creating a parentNode is the same thing as trailptr from linked list.
+	//creating a parentNode is the same thing as
+	//trailptr from linked list.
 	currentNode = m_pRoot;
 	parentNode = m_pRoot;
 
 	while (currentNode != nullptr)
 	{
-		//getLeft and getRight are just pointing in that direction,
-		//there isn't anything there yet.
+		//getLeft and getRight are just returning the left or right node,
+		//if there is any for the current node.
+
+		//The purpose of if the value is less than, greater than, or equal
+		//to the current node's data, is to see if the spot is taken or not.
 		if (a_nValue < currentNode->getData())
 		{
 			//this makes a new node to be inserted.
@@ -63,7 +70,8 @@ void BinaryTree::insert(int a_nValue)
 		}
 	}
 
-	//setLeft and setRight are inserting the values in those said directions.
+	//setLeft and setRight are inserting the values in those
+	//said directions if they aren't taken.
 	if (a_nValue < parentNode->getData())
 	{
 		TreeNode* newd = new TreeNode(a_nValue);
@@ -84,10 +92,7 @@ void BinaryTree::remove(int a_nValue)
 	TreeNode** ppOutCurrent = &currentNode;
 	TreeNode** ppOutParent = &parentNode;
 
-	//currentNode = *ppOutCurrent;
-	//parentNode = *ppOutParent;
-
-	if (findNode(a_nValue, ppOutCurrent, ppOutParent));
+	if (findNode(a_nValue, ppOutCurrent, ppOutParent))
 	{
 
 		if (currentNode->hasRight())
@@ -97,6 +102,12 @@ void BinaryTree::remove(int a_nValue)
 
 			ptrCurrent = *ppOutCurrent;
 			ptrParent = *ppOutParent;
+
+			if (ptrCurrent->hasRight())
+			{
+				ptrParent = ptrCurrent;
+				ptrCurrent = ptrCurrent->getRight();
+			}
 
 			while (ptrCurrent->hasLeft())
 			{
@@ -140,29 +151,20 @@ void BinaryTree::remove(int a_nValue)
 TreeNode * BinaryTree::find(int a_nValue)
 {
 	TreeNode* currentNode;
-	TreeNode* parentNode;
 
 	currentNode = m_pRoot;
-	parentNode = m_pRoot;
 
 	while (currentNode != nullptr)
 	{
 		if (a_nValue < currentNode->getData())
 		{
-			if (currentNode->hasLeft())
-			{
 			currentNode = currentNode->getLeft();
 			continue;
-			}
 		}
 		if (a_nValue > currentNode->getData())
 		{
-			if (currentNode->hasRight())
-			{
-			parentNode = currentNode;
 			currentNode = currentNode->getRight();
 			continue;
-			}
 		}
 		if (a_nValue == currentNode->getData())
 		{
@@ -178,27 +180,29 @@ void BinaryTree::draw(aie::Renderer2D * renderer, aie::Font* g_systemFont, TreeN
 
 bool BinaryTree::findNode(int a_nSearchValue, TreeNode ** ppOutNode, TreeNode ** ppOutParent)
 {
-	/*TreeNode* currentNode;
+	TreeNode* currentNode;
 	TreeNode* parentNode;
 
 	currentNode = m_pRoot;
-	parentNode = m_pRoot;*/
+	parentNode = m_pRoot;
 
-	while(*ppOutNode != nullptr)
+	while(currentNode != nullptr)
 	{
-		if (a_nSearchValue == (*ppOutNode)->getData())
+		if (a_nSearchValue == currentNode->getData())
 		{
+			*ppOutNode = currentNode;
+			*ppOutParent = parentNode;
 			return true;
 		}
-		else if (a_nSearchValue < (*ppOutNode)->getData())
+		else if (a_nSearchValue < currentNode->getData())
 		{
-			*ppOutParent = *ppOutNode;
-			*ppOutNode = (*ppOutNode)->getLeft();
+				parentNode = currentNode;
+				currentNode = currentNode->getLeft();
 		}
-		else if (a_nSearchValue > (*ppOutNode)->getData())
+		else if (a_nSearchValue > currentNode->getData())
 		{
-			*ppOutParent = *ppOutNode;
-			*ppOutNode = (*ppOutNode)->getRight();
+				parentNode = currentNode;
+				currentNode = currentNode->getRight();
 		}
 	}
 	return false;
