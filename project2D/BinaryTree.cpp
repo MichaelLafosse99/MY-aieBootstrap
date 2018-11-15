@@ -89,12 +89,14 @@ void BinaryTree::remove(int a_nValue)
 	TreeNode* currentNode = m_pRoot;
 	TreeNode* parentNode = m_pRoot;
 
+	//This is a pointer of a pointer, it points to the
+	//address of the pointer it's pointing to.
 	TreeNode** ppOutCurrent = &currentNode;
 	TreeNode** ppOutParent = &parentNode;
 
 	if (findNode(a_nValue, ppOutCurrent, ppOutParent))
 	{
-
+		//Checking to see if the currentNode has a right branch.
 		if (currentNode->hasRight())
 		{
 			TreeNode* ptrCurrent;
