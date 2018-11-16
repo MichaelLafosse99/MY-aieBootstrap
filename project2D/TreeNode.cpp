@@ -2,7 +2,8 @@
 #include <iostream>;
 
 extern aie::Font* g_systemFont;
-
+//This is the constructior for a tree node, it gives it it's value
+//and a left and a right pointer.
 TreeNode::TreeNode(int value)
 {
 	m_value = value;
