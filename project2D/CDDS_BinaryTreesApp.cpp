@@ -22,7 +22,6 @@ bool CDDS_BinaryTreesApp::startup()
 
 void CDDS_BinaryTreesApp::shutdown()
 {
-	delete m_selectedNode;
 	delete g_systemFont;
 	delete m_2dRenderer;
 }

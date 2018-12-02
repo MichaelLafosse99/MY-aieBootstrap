@@ -155,7 +155,7 @@ void BinaryTree::remove(int a_nValue)
 		}
 	}
 }
-//This function is what locates a node in the tree, if it exsist.
+//This function is what locates a node in the tree, if it exsists.
 TreeNode * BinaryTree::find(int a_nValue)
 {
 	TreeNode* currentNode;

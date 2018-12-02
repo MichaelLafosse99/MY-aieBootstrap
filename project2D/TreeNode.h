@@ -4,7 +4,6 @@
 class TreeNode
 {
 private:
-	// this could als be a pointer to another object if you like
 	int m_value;
 
 	// node's children
